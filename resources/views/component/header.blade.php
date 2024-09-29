@@ -9,10 +9,10 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Beranda</a></li>
-          <li><a class="nav-link scrollto {{ request()->is('article') ? 'active' : '' }}" href="{{ url('/article') }}">Kegiatan</a></li>
+          <li><a class="nav-link scrollto {{ request()->is('activities') ? 'active' : '' }}" href="{{ url('/activities') }}">Kegiatan</a></li>
           <li>
             @if (Auth::check())
-                <a class="nav-link scrollto" href="{{ url('/dasbor') }}">
+                <a class="nav-link scrollto" href="{{ url('/ketua_rt/dashboard') }}">
                     <button class="btn btn-primary rounded-pill">Dasbor</button>
                 </a>
             @else

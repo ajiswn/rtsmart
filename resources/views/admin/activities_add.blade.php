@@ -22,19 +22,19 @@
           <h5 class="card-title">Formulir Tambah Kegiatan</h5>
 
           <!-- Vertical Form -->
-          <form class="row g-3" action="{{route('artikel.store')}}" method="POST" enctype="multipart/form-data">
+          <form class="row g-3" action="{{route('activities.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-12">
-              <label for="judul" class="form-label">Judul</label>
-              <input type="text" name="judul" class="form-control" id="judul">
+              <label for="title" class="form-label">Judul</label>
+              <input type="text" name="title" class="form-control" id="title">
             </div>
             <div class="col-12">
-              <label for="gambar" class="form-label">Gambar</label>
-              <input type="file" name="gambar" class="form-control" id="gambar">
+              <label for="image" class="form-label">Gambar</label>
+              <input type="file" name="image" class="form-control" id="image">
             </div>
             <div class="col-12">
               <label class="col-form-label" for>Kategori</label>
-              <select name="kategori" class="form-select" aria-label="Default select example">
+              <select name="category" class="form-select" aria-label="Default select example">
                 <option selected hidden>-Pilih Kategori-</option>
                 <option value="Sosial">Sosial</option>
                 <option value="Keagamaan">Keagamaan</option>
@@ -51,8 +51,8 @@
       <div class="card">
         <div class="card-body">
             <div class="col-12 mt-3">
-              <label for="konten" class="form-label">Konten</label>
-              <textarea name="konten" class="form-control" style="height: 300px"></textarea>
+              <label for="content" class="form-label">Konten</label>
+              <textarea name="content" class="form-control" style="height: 300px"></textarea>
             </div>
             <div class="mt-3">
               <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Simpan</button>

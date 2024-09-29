@@ -22,28 +22,28 @@
           <h5 class="card-title">Formulir Edit Kegiatan</h5>
 
           <!-- Vertical Form -->
-          <form class="row g-3" action="{{ route('artikel.update', $artikel->id) }}" method="POST"  enctype="multipart/form-data">
+          <form class="row g-3" action="{{ route('activities.update', $activities->id) }}" method="POST"  enctype="multipart/form-data">
             @csrf @method('put')
             <div class="col-12">
-              <label for="judul" class="form-label">Judul</label>
-              <input type="text" name="judul" class="form-control" id="judul" value="{{ $artikel->judul }}">
+              <label for="title" class="form-label">Judul</label>
+              <input type="text" name="title" class="form-control" id="title" value="{{ $activities->title }}">
             </div>
             <div class="col-12">
-              <label for="gambar" class="form-label">Gambar</label>
-              <input type="file" name="gambar" class="form-control" id="gambar">
-              @if ($artikel->gambar)
-                <img src="{{ asset('storage/'.$artikel->gambar) }}" class="mt-2 img-fluid img-thumbnail" width="200" alt="Current Image" height="80">
+              <label for="image" class="form-label">Gambar</label>
+              <input type="file" name="image" class="form-control" id="image">
+              @if ($activities->image)
+                <img src="{{ asset('storage/'.$activities->image) }}" class="mt-2 img-fluid img-thumbnail" width="200" alt="Current Image" height="80">
               @endif
             </div>
             <div class="col-12">
               <label class="col-form-label" for>Kategori</label>
-              <select name="kategori" class="form-select" aria-label="Default select example">
+              <select name="category" class="form-select" aria-label="Default select example">
                 <option selected hidden>-Pilih Kategori-</option>
-                <option value="Sosial" {{ $artikel->kategori == 'Sosial' ? 'selected' : '' }}>Sosial</option>
-                <option value="Keagamaan" {{ $artikel->kategori == 'Keagamaan' ? 'selected' : '' }}>Keagamaan</option>
-                <option value="Olahraga" {{ $artikel->kategori == 'Olahraga' ? 'selected' : '' }}>Olahraga</option>
-                <option value="Lingkungan" {{ $artikel->kategori == 'Lingkungan' ? 'selected' : '' }}>Lingkungan</option>
-                <option value="Pendidikan" {{ $artikel->kategori == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
+                <option value="Sosial" {{ $activities->category == 'Sosial' ? 'selected' : '' }}>Sosial</option>
+                <option value="Keagamaan" {{ $activities->category == 'Keagamaan' ? 'selected' : '' }}>Keagamaan</option>
+                <option value="Olahraga" {{ $activities->category == 'Olahraga' ? 'selected' : '' }}>Olahraga</option>
+                <option value="Lingkungan" {{ $activities->category == 'Lingkungan' ? 'selected' : '' }}>Lingkungan</option>
+                <option value="Pendidikan" {{ $activities->category == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
               </select>
             </div>
           <!-- Vertical Form -->
@@ -55,8 +55,8 @@
         <div class="card-body">
 
             <div class="col-12 mt-3">
-              <label for="konten" class="form-label">Konten</label>
-              <textarea class="form-control" name="konten" style="height: 300px">{{ $artikel->konten }}</textarea>
+              <label for="content" class="form-label">Konten</label>
+              <textarea class="form-control" name="content" style="height: 300px">{{ $activities->content }}</textarea>
             </div>
             <div class="mt-3">
               <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Simpan</button>

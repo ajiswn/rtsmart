@@ -1,14 +1,14 @@
 @extends('component.admin_layout')
 
-@section('title', 'Data Warga - RTSmart')
+@section('title', 'Data Kartu Keluarga - RTSmart')
 
 @section('body')
 <div class="pagetitle">
-  <h1>Data Warga</h1>
+  <h1>Data Kartu Keluarga</h1>
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item">Dasbor</li>
-      <li class="breadcrumb-item active">Data Warga</li>
+      <li class="breadcrumb-item active">Data Kartu Keluarga</li>
     </ol>
   </nav>
 </div><!-- End Page Title -->
@@ -34,32 +34,30 @@
             <thead>
               <tr class="table-success">
                 <th scope="col">#</th>
-                <th scope="col">NIM</th> 
-                <th scope="col">Nama</th>
-                <th scope="col">Jenis Kelamin</th>
+                <th scope="col">NO. KK</th> 
+                <th scope="col">Nama Kepala Keluarga</th>
                 <th scope="col">Alamat</th>
-                <th scope="col">KK</th>
                 <th scope="col">Status</th>
                 <th scope="col">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @if(!$pendaftaran->isEmpty())
+              @if(!$kartukeluarga->isEmpty())
               <?php $no=1; ?>
-              @foreach($pendaftaran as $data)
+              @foreach($kartukeluarga as $data)
               <tr>
                 <th scope="row">{{$no}}</th>
-                <td>{{ $data->nama }}</td>
-                <td>{{ $data->prodi }}</td>
-                <td>{{ $data->angkatan }}</td>
+                <td>{{ $data->no_kk }}</td>
+                <td>{{ $data->nama_kepala_keluarga }}</td>
+                <td>{{ $data->alamat }}</td>
                 <td>{{ $data->status }}</td>
                 <td>
-                    <a class="btn btn-info" href="{{ route('pendaftaran.show',$data->id) }}"><i class="bi bi-eye" title="Detail"></i></a>
-                    @if($data->status == 'Proses')
-                      <button title="Terima" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#terimaModal" onclick="terimaAction('{{ route('pendaftaran.diterima', $data->id) }}')">
+                    <a class="btn btn-info" href="{{ route('kartukeluarga.show',$data->id) }}"><i class="bi bi-eye" title="Detail"></i></a>
+                    @if($data->status == 'Aktif')
+                      <button title="Terima" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#terimaModal" onclick="terimaAction('{{ route('kartukeluarga.edit', $data->id) }}')">
                         <i class="bi bi-check-lg"></i>
                       </button>
-                      <button title="Tolak" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolakModal" onclick="tolakAction('{{ route('pendaftaran.ditolak', $data->id) }}')">
+                      <button title="Tolak" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolakModal" onclick="tolakAction('{{ route('kartukeluarga.destroy', $data->id) }}')">
                         <i class="bi bi-x-lg"></i>
                       </button>
                     @endif

@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\KartuKeluarga;
+use App\Models\Activities;
+use App\Models\Warga;
+
+class DashboardController extends Controller
+{
+    //Mengirim data ke Dasbor Admin
+    public function dashboard()
+    {
+        $activities = Activities::all()->count();
+        $pendaftar = Pendaftaran::all()->count();
+        $anggota = Pendaftaran::where('status','Diterima')->count();
+
+        return view('admin.dashboard', compact('activities', 'pendaftar','anggota'));
+    }
+}

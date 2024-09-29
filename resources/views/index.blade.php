@@ -1,6 +1,6 @@
 @extends('component.layout')
 
-@section('title', 'Beranda - RT Smart')
+@section('title', 'RT Smart')
 
 @section('hero')
   <!-- ======= Hero Section ======= -->
@@ -31,7 +31,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
           <div class="icon-box">
-            <div class="icon"><i class="bx bxs-tree"></i></div>
+            <div class="icon"><i class="bi bi-people"></i></div>
             <h4>Kelola Data Warga</h4>
             <p>Fitur ini memudahkan pengurus RT dalam mengelola data warga secara terstruktur dan aman.
             </p>
@@ -40,7 +40,7 @@
 
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
           <div class="icon-box">
-            <div class="icon"><i class="bx bx-desktop"></i></div>
+            <div class="icon"><i class="bi bi-card-text"></i></div>
             <h4>Kegiatan Warga</h4>
             <p>Jelajahi berbagai kegiatan warga yang berlangsung di lingkungan RT kita!</p>
           </div>
@@ -48,7 +48,7 @@
 
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
           <div class="icon-box">
-            <div class="icon"><i class="bx bx-bus"></i></div>
+            <div class="icon"><i class="bi bi-envelope"></i></div>
             <h4>Pengajuan Surat</h4>
             <p>Pengajuan surat kini lebih mudah dan cepat!</p>
           </div>
@@ -98,31 +98,31 @@
 
       <div class="row gy-5">
 
-        @foreach ($artikel as $data)
+        @foreach ($activities as $data)
           <div class="col-xl-4 col-md-6">
             <div class="post-item position-relative h-100" data-aos="fade-up"
               data-aos-delay="100">
 
               <div class="post-img position-relative overflow-hidden">
-                <img src="{{ asset('storage/' . $data->gambar) }}"
+                <img src="{{ asset('storage/' . $data->image) }}"
                   class="img-fluid" alt="">
-                <span class="post-date">{{ $data->tanggal }}</span>
+                <span class="post-date">{{ $data->date }}</span>
               </div>
 
               <div class="post-content d-flex flex-column">
 
-                <h3 class="post-title">{{ $data->judul }}</h3>
+                <h3 class="post-title">{{ $data->title }}</h3>
 
                 <div class="meta d-flex align-items-center">
                   <div class="d-flex align-items-center">
                     <i class="bi bi-folder2"></i> <span
-                      class="ps-2">{{ $data->kategori }}</span>
+                      class="ps-2">{{ $data->category }}</span>
                   </div>
                 </div>
 
                 <hr>
 
-                <a href="{{ url('/detail_article/' . $data->id) }}"
+                <a href="{{ url('/activities/detail/' . $data->id) }}"
                   class="readmore stretched-link"><span>Selengkapnya</span><i
                     class="bi bi-arrow-right"></i></a>
 

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Artikel extends Model
+class Activities extends Model
 {
     use HasFactory;
-    protected $table = 'artikels';
+    protected $table = 'activities';
     protected $primaryKey = 'id';
-    protected $fillable = ['judul','gambar','kategori','tanggal','konten'];
+    protected $fillable = ['title','image','category','date','content'];
 }

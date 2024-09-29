@@ -86,25 +86,36 @@
     <ul class="sidebar-nav mt-2" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('dasbor') ? '' : 'collapsed' }}" href="{{ url('/dasbor') }}">
+        <a class="nav-link {{ Request::is('ketua_rt/dashboard') ? '' : 'collapsed' }}" href="{{ url('/ketua_rt/dashboard') }}">
           <i class="bi bi-grid"></i>
           <span>Dasbor</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('artikel') ? '' : 'collapsed' }}" href="{{ url('/artikel') }}">
+        <a class="nav-link {{ Request::is('ketua_rt/activities') ? '' : 'collapsed' }}" href="{{ url('/ketua_rt/activities') }}">
           <i class="bi bi-card-text"></i>
           <span>Kegiatan</span>
         </a>
       </li><!-- End Articles Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('pendaftaran') ? '' : 'collapsed' }}" href="{{ url('/pendaftaran') }}">
-          <i class="bi bi-people"></i>
-          <span>Data Warga</span>
+        <a class="nav-link {{ Request::is('ketua_rt/kartukeluarga') ? '' : 'collapsed' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-people"></i><span>Kelola Data</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End Registration Nav -->
+        <ul id="tables-nav" class="nav-content collapse {{ Request::is('ketua_rt/kartukeluarga') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url('/ketua_rt/kartukeluarga') }}" class="{{ Request::is('ketua_rt/kartukeluarga') ? 'active' : '' }}">
+              <i class="bi bi-circle"></i><span>Data KK</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url('/pendaftaran') }}" class="">
+              <i class="bi bi-circle"></i><span>Data Warga</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Data Nav -->
 
       <li class="nav-item">
         <a class="nav-link {{ Request::is('pengurus') ? '' : 'collapsed' }}" href="{{ url('/pengurus') }}">

@@ -52,7 +52,7 @@
                                         <i class="bi bi-card-text"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{$artikel}}</h6>
+                                        <h6>{{$activities}}</h6>
 
                                     </div>
                                 </div>

@@ -26,7 +26,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               @endif
-              <a href="{{route('artikel.create')}}"><button type="button" class="btn btn-primary rounded"><i class="bi bi-plus"></i> Tambah</button></a>
+              <a href="{{route('activities.create')}}"><button type="button" class="btn btn-primary rounded"><i class="bi bi-plus"></i> Tambah</button></a>
             </h5>
 
             <!-- Table with hoverable rows -->
@@ -41,19 +41,19 @@
                 </tr>
               </thead>
               <tbody>
-                @if(!$artikel->isEmpty())
+                @if(!$activities->isEmpty())
                 <?php $no=1; ?>
-                @foreach($artikel as $data)
+                @foreach($activities as $data)
                 <tr>
                   <th scope="row">{{ $no }}</th>
                   <td>
-                    <img src="{{asset('storage/' . $data->gambar)}}" width="80" class="img-fluid img-thumbnail" alt="{{ $data->judul }}">
+                    <img src="{{asset('storage/' . $data->image)}}" width="80" class="img-fluid img-thumbnail" alt="{{ $data->title }}">
                   </td>
-                  <td class="w-50">{{ $data->judul }}</td>
-                  <td>{{ $data->kategori }}</td>
+                  <td class="w-50">{{ $data->title }}</td>
+                  <td>{{ $data->category }}</td>
                   <td>
-                      <a title="Edit" href="{{ route('artikel.edit',$data->id) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                      <button title="Hapus" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="deleteAction('{{ route('artikel.destroy', $data->id) }}')">
+                      <a title="Edit" href="{{ route('activities.edit',$data->id) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                      <button title="Hapus" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="deleteAction('{{ route('activities.destroy', $data->id) }}')">
                         <i class="bi bi-trash3"></i>
                       </button>
                   </td>

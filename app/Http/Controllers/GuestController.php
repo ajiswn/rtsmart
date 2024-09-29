@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Artikel;
-use App\Models\Pendaftaran;
+use App\Models\Activities;
 use Carbon\Carbon;
 
 
@@ -13,85 +12,49 @@ class GuestController extends Controller
     //Mengirim data ke Halaman Beranda (Guest)
     public function index()
     {
-        $artikel = Artikel::select('id','judul','gambar','kategori','tanggal')
+        $activities = Activities::select('id','title','image','category','date')
                             ->orderBy('created_at','desc')
                             ->take(3)
                             ->get();
-
-        
-
-        return view('index',compact('artikel'));
-    }
-
-    //Menampilkan Halaman Tentang Kami (Guest)
-    public function tentang_kami()
-    {
-        return view('tentang_kami');
+        return view('index',compact('activities'));
     }
     
     //Proses Hitung Kategori
-    private function hitungKategori() {
+    private function countCategory() {
         return [
-            'sosial' => Artikel::where('kategori', 'sosial')->count(),
-            'keagamaan' => Artikel::where('kategori', 'keagamaan')->count(),
-            'olahraga' => Artikel::where('kategori', 'olahraga')->count(),
-            'lingkungan' => Artikel::where('kategori', 'lingkungan')->count(),
-            'pendidikan' => Artikel::where('kategori', 'pendidikan')->count()
+            'sosial' => Activities::where('category', 'sosial')->count(),
+            'keagamaan' => Activities::where('category', 'keagamaan')->count(),
+            'olahraga' => Activities::where('category', 'olahraga')->count(),
+            'lingkungan' => Activities::where('category', 'lingkungan')->count(),
+            'pendidikan' => Activities::where('category', 'pendidikan')->count()
         ];
     }
 
-    //Mengirim Data ke Halaman Artikel (Guest)
-    public function artikel()
+    //Mengirim Data ke Halaman Kegiatan (Guest)
+    public function activities()
     {
-        $artikel = Artikel::orderBy('updated_at','desc')->get();
-        $hitung = $this->hitungKategori();
-        return view('artikel', compact('artikel','hitung'));
+        $activities = activities::orderBy('updated_at','desc')->get();
+        $count = $this->countCategory();
+        return view('activities', compact('activities','count'));
     }  
 
-    ////Mengirim Data ke Halaman Detail Artikel (Guest)
-    public function detail_artikel(string $id)
+    ////Mengirim Data ke Halaman Detail Kegiatan (Guest)
+    public function activities_detail(string $id)
     {
-        $detail_artikel = Artikel::find($id);
-        $artikel = Artikel::orderBy('updated_at','desc')->get();
-        $hitung = $this->hitungKategori();
-        return view('detail_artikel', compact('detail_artikel','hitung','artikel'));
+        $activities_detail = Activities::find($id);
+        $activities = Activities::orderBy('updated_at','desc')->get();
+        $count = $this->countCategory();
+        return view('activities_detail', compact('activities_detail','count','activities'));
     }
 
     //Mengirim Data ke Halaman Kategori Artikel (Guest)
-    public function kategori_artikel(string $var)
+    public function activities_category(string $var)
     {
-        $kategori = Artikel::where('kategori', $var)->get();
+        $category = Activities::where('category', $var)->get();
         $var = ucfirst($var);
-        $artikel = Artikel::orderBy('updated_at','desc')->get();
-        $hitung = $this->hitungKategori();
+        $activities = Activities::orderBy('updated_at','desc')->get();
+        $count = $this->countCategory();
 
-        return view('artikel_kategori', compact('kategori','hitung','var','artikel'));
-    }
-
-    //Menampilkan Halaman Pendaftaran
-    public function pendaftaran()
-    {
-        return view('pendaftaran');
-    }
-
-    //Proses Input data pendaftar baru
-    public function pendaftaran_submit(Request $request)
-    {
-        $pendaftar = new Pendaftaran();
-        $pendaftar->nama = $request->nama;
-        $pendaftar->nim = $request->nim;
-        $pendaftar->prodi = $request->prodi;
-        $pendaftar->fakultas = $request->fakultas;
-        $pendaftar->tempat_lahir = $request->tempat_lahir;
-        $pendaftar->tgl_lahir = $request->tgl_lahir;
-        $pendaftar->angkatan = $request->angkatan;
-        $pendaftar->email = $request->email;
-        $pendaftar->ktm = $request->file('ktm')->store('ktm-pendaftar');
-        $pendaftar->alasan = $request->alasan;
-        $pendaftar->twibbon = $request->twibbon;
-
-        $pendaftar->save();
-
-        return redirect('registration')->with('success','Data Anda telah terkirim!');
+        return view('activities_category', compact('category','count','var','activities'));
     }
 }

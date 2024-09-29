@@ -69,7 +69,7 @@
             <h4>Navigasi</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/about_us') }}">Kegiatan</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/activities') }}">Kegiatan</a></li>
             </ul>
           </div>
         </div>
