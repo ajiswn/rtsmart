@@ -16,8 +16,24 @@ class KartuKeluargaTableSeeder extends Seeder
         DB::table('kartu_keluarga')->insert([
             [
                 'no_kk'                 => '1505071701110041',
-                'nama_kepala_keluarga'  => 'Syaiful Bahri',
                 'alamat'                => 'Blok R 9I',
+                'image'                 => 'img\kartu_keluarga\kk-1.jpg',
+                'status'                => 'Aktif',
+                'created_at'            => now(),
+                'updated_at'            => now(),
+            ],
+            [
+                'no_kk'                 => '1505071701110040',
+                'alamat'                => 'Blok R 8A',
+                'image'                 => 'img\kartu_keluarga\kk-2.jpg',
+                'status'                => 'Aktif',
+                'created_at'            => now(),
+                'updated_at'            => now(),
+            ],
+            [
+                'no_kk'                 => '1505071701110039',
+                'alamat'                => 'Blok R 7B',
+                'image'                 => 'img\kartu_keluarga\kk-3.jpg',
                 'status'                => 'Aktif',
                 'created_at'            => now(),
                 'updated_at'            => now(),

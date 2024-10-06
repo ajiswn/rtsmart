@@ -3,19 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatabel;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class User extends Authenticatabel
+class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = 'users';
     protected $fillable = [
-        'name', 'username', 'password', 'role',
+        'no_kk',
+        'password',
+        'role',
+        'status',
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function kartukeluarga()
+    {
+        return $this->belongsTo(Warga::class,'no_kk','no_kk');
+    }
 }

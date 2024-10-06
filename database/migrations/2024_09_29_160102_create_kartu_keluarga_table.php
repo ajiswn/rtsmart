@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('kartu_keluarga', function (Blueprint $table) {
             $table->id();
             $table->string('no_kk')->unique();
-            $table->string('nama_kepala_keluarga');
             $table->string('alamat');
+            $table->string('image')->nullable();
             $table->enum('status',['Aktif','Nonaktif'])->default('Aktif');
             $table->timestamps();
         });

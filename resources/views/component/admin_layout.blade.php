@@ -53,12 +53,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->nama }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">Ketua RT</span>
           </a><!-- End Profile Image Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{ Auth::user()->nama }}</h6>
+              <h6>Ketua RT</h6>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -100,18 +100,23 @@
       </li><!-- End Articles Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('ketua_rt/kartukeluarga') ? '' : 'collapsed' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{ Request::is('ketua_rt/manage*') ? '' : 'collapsed' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-people"></i><span>Kelola Data</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse {{ Request::is('ketua_rt/kartukeluarga') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+        <ul id="tables-nav" class="nav-content collapse {{ Request::is('ketua_rt/manage*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ url('/ketua_rt/kartukeluarga') }}" class="{{ Request::is('ketua_rt/kartukeluarga') ? 'active' : '' }}">
+            <a href="{{ url('/ketua_rt/manage/kartukeluarga') }}" class="{{ Request::is('ketua_rt/manage/kartukeluarga') ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Data KK</span>
             </a>
           </li>
           <li>
-            <a href="{{ url('/pendaftaran') }}" class="">
+            <a href="#" class="">
               <i class="bi bi-circle"></i><span>Data Warga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url('/ketua_rt/manage/users') }}" class="{{ Request::is('ketua_rt/manage/users*') ? 'active' : '' }}">
+              <i class="bi bi-circle"></i><span>Akun Warga</span>
             </a>
           </li>
         </ul>

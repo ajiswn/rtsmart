@@ -20,33 +20,27 @@ class LoginController extends Controller
     }
 
     //Proses Autenfikasi Login
-    public function login_action(Request $request) 
+    public function authenticate(Request $request) 
     {
-        $request->validate([
-            'username'=> 'required',
-            'password'=> 'required'
+        $credentials = $request->validate([
+            'no_kk'     => 'required',
+            'password'  => 'required'
         ]);
 
-        $credentials = $request->only('username', 'password');
 
         if(Auth::attempt($credentials)) {
-            
-            $user = Auth::user();
-
-            //Redirect berdasarkan Role
-            
-            if ($user->role == 'ketua_rt') {
-                return redirect()->route('dashboard.ketua_rt');
-            } elseif ($user->role == 'warga') {
-                return redirect()->route('dashboard.warga');
-            }
+            $request->session()->regenerate();
+            return redirect()->intended('/ketua_rt/dashboard');
         }
+
         return back()->with('error','Username atau password salah!');
     }
 
     //Proses Logout
     public function logout(Request $request) {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/');
     }
 }

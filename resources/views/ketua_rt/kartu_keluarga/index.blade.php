@@ -26,7 +26,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             @endif
-            <a href="#"><button type="button" class="btn btn-primary rounded" disabled><i class="bi bi-plus"></i> Tambah</button></a>
+            <a href="{{route('kartukeluarga.create')}}"><button type="button" class="btn btn-primary rounded"><i class="bi bi-plus"></i> Tambah</button></a>
           </h5>
 
           <!-- Table with hoverable rows -->
@@ -48,17 +48,28 @@
               <tr>
                 <th scope="row">{{$no}}</th>
                 <td>{{ $data->no_kk }}</td>
-                <td>{{ $data->nama_kepala_keluarga }}</td>
+                <td>
+                  @if ($data->nama_kepala_keluarga)
+                      {{ $data->nama_kepala_keluarga }}
+                  @else
+                      <span class="text-danger">--KK masih kosong--</span>
+                  @endif
+              </td>
                 <td>{{ $data->alamat }}</td>
                 <td>{{ $data->status }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('kartukeluarga.show',$data->id) }}"><i class="bi bi-eye" title="Detail"></i></a>
                     @if($data->status == 'Aktif')
-                      <button title="Terima" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#terimaModal" onclick="terimaAction('{{ route('kartukeluarga.edit', $data->id) }}')">
+                    <a title="Edit" href="{{ route('kartukeluarga.edit',$data->id) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                    <button title="Nonaktifkan" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#nonaktifkanModal" onclick="nonaktifkanAction('{{ route('kartukeluarga.nonaktifkan', $data->id) }}')">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                    @elseif($data->status == 'Nonaktif')
+                      <button title="Aktifkan" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#aktifkanModal" onclick="aktifkanAction('{{ route('kartukeluarga.aktifkan', $data->id) }}')">
                         <i class="bi bi-check-lg"></i>
                       </button>
-                      <button title="Tolak" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolakModal" onclick="tolakAction('{{ route('kartukeluarga.destroy', $data->id) }}')">
-                        <i class="bi bi-x-lg"></i>
+                      <button title="Hapus" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" onclick="deleteAction('{{ route('kartukeluarga.destroy', $data->id) }}')">
+                        <i class="bi bi-trash3"></i>
                       </button>
                     @endif
                 </td>
@@ -83,55 +94,82 @@
   </div>
 </section>
 
-<!-- Konfirmasi Terima Modal -->
-<div class="modal fade" id="terimaModal" tabindex="-1">
+<!-- Konfirmasi Aktifkan Modal -->
+<div class="modal fade" id="aktifkanModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h5 class="modal-title">Konfirmasi Terima Pendaftar</h5>
+        <h5 class="modal-title">Konfirmasi Aktifkan Kartu Keluarga</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body border-0 text-center">
-          Anda Yakin Ingin Menerima Pendaftar Ini?
+          Anda Yakin Ingin Mengaktifkan Kartu Keluarga Ini?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Tutup</button>
-        <a href="" class="btn btn-primary" id="terimaButton"><i class="bi bi-check-lg"></i> Terima</a>
+        <a href="" class="btn btn-primary" id="aktifkanButton"><i class="bi bi-check-lg"></i> Aktifkan</a>
       </div>
     </div>
   </div>
 </div>
-<!-- Konfirmasi Terima Modal-->
+<!-- Konfirmasi Aktifkan Modal-->
 
-<!-- Konfirmasi Tolak Modal -->
-<div class="modal fade" id="tolakModal" tabindex="-1">
+<!-- Konfirmasi Nonaktifkan Modal -->
+<div class="modal fade" id="nonaktifkanModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h5 class="modal-title">Konfirmasi Tolak Pendaftar</h5>
+        <h5 class="modal-title">Konfirmasi Nonaktifkan Kartu Keluarga</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body border-0 text-center">
-          Anda Yakin Ingin Menolak Pendaftar Ini?
+          Anda Yakin Ingin Menonaktifkan Kartu Keluarga Ini?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Tutup</button>
-        <a href="" class="btn btn-danger" id="tolakButton"><i class="bi bi-x-lg"></i> Tolak</a>
+        <a href="" class="btn btn-danger" id="nonaktifkanButton"><i class="bi bi-x-lg"></i> Nonaktifkan</a>
       </div>
     </div>
   </div>
 </div>
-<!--vKonfirmasi Tolak Modal-->
+<!--Konfirmasi Nonaktifkan Modal-->
+
+<!-- Start Konfirmasi Hapus Modal -->
+<div class="modal fade" id="hapusModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title">Konfirmasi Hapus Kartu Keluarga</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body border-0 text-center">
+          Anda Yakin Ingin Menghapus Kartu Keluarga Ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Tutup</button>
+        <form action="" id="deleteForm" method="POST">
+          @csrf @method('delete')
+          <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Hapus</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Konfirmasi Hapus Modal-->
 @endsection
 
 @section('script')
 <script>
-  function terimaAction(actionUrl) {
-      document.getElementById('terimaButton').href = actionUrl;
+  function aktifkanAction(actionUrl) {
+      document.getElementById('aktifkanButton').href = actionUrl;
   }
 
-  function tolakAction(actionUrl) {
-      document.getElementById('tolakButton').href = actionUrl;
+  function nonaktifkanAction(actionUrl) {
+      document.getElementById('nonaktifkanButton').href = actionUrl;
+  }
+
+  function deleteAction(actionUrl) {
+      document.getElementById('deleteForm').action = actionUrl;
   }
 </script>
 @endsection

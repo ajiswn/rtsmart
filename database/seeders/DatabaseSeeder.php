@@ -10,9 +10,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->call(KartuKeluargaTableSeeder::class);
+        $this->call(WargaTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(ActivitiesTableSeeder::class);
-        $this->call(KartuKeluargaTableSeeder::class);
     }
     
 }

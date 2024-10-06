@@ -10,12 +10,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('username')->unique();
+            $table->string('no_kk')->unique();
             $table->string('password');
-            $table->enum('role',['ketua_rt','warga']);
+            $table->enum('role',['ketua_rt','warga'])->default('warga');
+            $table->enum('status',['Aktif','Nonaktif']);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('no_kk')->references('no_kk')->on('kartu_keluarga');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -39,11 +41,5 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
-        Schema::dropIfExists('cache');
-        Schema::dropIfExists('cache_locks');
-        Schema::dropIfExists('jobs');
-        Schema::dropIfExists('job_batches');
-        Schema::dropIfExists('failed_jobs');
-        Schema::dropIfExists('admins');
     }
 };

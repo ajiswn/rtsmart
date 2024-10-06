@@ -13,9 +13,9 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $activities = Activities::all()->count();
-        $pendaftar = Pendaftaran::all()->count();
-        $anggota = Pendaftaran::where('status','Diterima')->count();
+        // $pendaftar = Pendaftaran::all()->count();
+        // $anggota = Pendaftaran::where('status','Diterima')->count();
 
-        return view('admin.dashboard', compact('activities', 'pendaftar','anggota'));
+        return view('ketua_rt.dashboard', compact('activities'));
     }
 }

@@ -22,17 +22,17 @@
 
                 <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">Login ke Akun Anda</h5>
-                  <p class="text-center small">Masukkan username dan password Anda</p>
+                  <p class="text-center small">Masukkan No. KK dan password Anda</p>
                 </div>
 
-                <form class="row g-3 needs-validation" action="{{ route('login.action') }}" method="POST">
+                <form class="row g-3 needs-validation" action="{{ route('authenticate') }}" method="POST">
                   @csrf
                   <div class="col-12">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="no_kk" class="form-label">Nomor Kartu Keluarga</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-person"></i></span>
-                      <input type="text" name="username" class="form-control" id="username" placeholder="Username..." required>
-                      <div class="invalid-feedback">Please enter your username!</div>
+                      <input type="text" name="no_kk" class="form-control" id="no_kk" placeholder="Nomor KK..." required autofocus>
+                      <div class="invalid-feedback">Masukkan nomor kartu keluarga Anda!</div>
                     </div>
                   </div>
 
@@ -41,7 +41,7 @@
                     <div class="input-group has-validation">
                       <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-lock"></i></span>
                       <input type="password" name="password" class="form-control" id="password" placeholder="Password..." required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <div class="invalid-feedback">Masukkan password Anda!</div>
                     </div>
                   </div>
                   @if(session()->has('error'))
