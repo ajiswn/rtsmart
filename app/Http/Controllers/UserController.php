@@ -17,6 +17,7 @@ class UserController extends Controller
         $users = User::join('kartu_keluarga', 'users.no_kk', '=', 'kartu_keluarga.no_kk')
             ->join('warga', 'kartu_keluarga.no_kk', '=', 'warga.no_kk')
             ->where('warga.peran', 'Kepala Keluarga')
+            ->where('users.role','warga')
             ->select('users.*', 'warga.nama as nama_kepala_keluarga')
             ->get();
         return view('ketua_rt.users.index',compact('users'));
@@ -47,7 +48,7 @@ class UserController extends Controller
             'password'      => Hash::make($request->password),
         ]);
 
-        return redirect('/ketua_rt/manage/users')->with('success','Akun warga baru berhasil ditambahkan!');
+        return redirect('/manage_data/users')->with('success','Akun warga baru berhasil ditambahkan!');
     }
 
     /**
@@ -79,6 +80,26 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $users = User::findOrFail($id);
+        //Hapus KK
+        $users->delete();
+
+        return redirect('/manage_data/users')->with('success','Akun berhasil dihapus!');
+    }
+
+    public function aktifkan(string $id)
+    {
+        User::find($id)->update([
+            'status' => "Aktif"
+        ]);
+        return redirect('/manage_data/users')->with('success','Akun telah diaktifkan!');
+    }
+
+    public function nonaktifkan(string $id)
+    {
+        User::find($id)->update([
+            'status' => "Nonaktif"
+        ]);
+        return redirect('/manage_data/users')->with('success','Akun telah dinonaktifkan!');
     }
 }

@@ -12,11 +12,16 @@ class KartuKeluarga extends Model
 
     public function warga()
     {
-        return $this->belongsTo(Warga::class,'no_kk','no_kk');
+        return $this->hasMany(Warga::class, 'no_kk', 'no_kk');
     }
 
     public function users()
     {
       return $this->belongsTo(User::class,'no_kk','no_kk');
+    }
+
+    public function surat()
+    {
+      return $this->belongsTo(Warga::class,'no_kk','no_kk');
     }
 }

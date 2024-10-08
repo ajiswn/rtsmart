@@ -7,7 +7,7 @@
   <h1>Tambah Kegiatan</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">Dasbor</li>
+      <li class="breadcrumb-item">Beranda</li>
       <li class="breadcrumb-item">Kegiatan</li>
       <li class="breadcrumb-item active">Tambah Kegiatan</li>
     </ol>

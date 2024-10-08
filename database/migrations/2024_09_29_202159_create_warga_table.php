@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('tanggal_lahir');
             $table->enum('agama',['Islam','Protestan','Katolik','Hindu','Budha','Konghuchu']);
             $table->string('pekerjaan');
-            $table->enum('kewarganegaraan',['WNI','WNA']);
+            $table->enum('status_kawin',['Belum Kawin','Kawin','Cerai Hidup','Cerai Mati']);
+            $table->string('no_telp')->nullable();
             $table->enum('peran',['Kepala Keluarga','Anggota Keluarga']);
             $table->enum('status',['Aktif','Pindah','Meninggal'])->default('Aktif');
             $table->string('no_kk');
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('no_kk')->references('no_kk')->on('kartu_keluarga');

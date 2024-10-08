@@ -7,7 +7,7 @@
   <h1>Tambah Akun Warga</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">Dasbor</li>
+      <li class="breadcrumb-item">Beranda</li>
       <li class="breadcrumb-item">Akun Warga</li>
       <li class="breadcrumb-item active">Tambah Akun Warga</li>
     </ol>
@@ -26,7 +26,7 @@
             @csrf
             <div class="col-12">
               <label class="col-form-label" for>Kepala Keluarga</label>
-              <select name="no_kk" class="form-select" aria-label="Default select example">
+              <select name="no_kk" class="form-select">
                 <option selected hidden>-Pilih Kepala Keluarga-</option>
                 @foreach ($kartu_keluarga as $item)
                   <option value="{{$item->no_kk}}">{{$item->no_kk}} - {{$item->nama_kepala_keluarga}}</option>

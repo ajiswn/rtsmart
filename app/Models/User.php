@@ -17,6 +17,7 @@ class User extends Authenticatable
         'password',
         'role',
         'status',
+        'photo',
     ];
 
     protected $hidden = [
@@ -26,5 +27,10 @@ class User extends Authenticatable
     public function kartukeluarga()
     {
         return $this->belongsTo(Warga::class,'no_kk','no_kk');
+    }
+
+    public function surat_ahli_waris()
+    {
+      return $this->belongsTo(Warga::class,'no_kk','no_kk');
     }
 }

@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ketua_rt' => \App\Http\Middleware\KetuaRTMiddleware::class,
+        'warga' => \App\Http\Middleware\WargaMiddleware::class,
     ];  
 }

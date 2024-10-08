@@ -7,7 +7,7 @@
   <h1>Data Kartu Keluarga</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">Dasbor</li>
+      <li class="breadcrumb-item">Beranda</li>
       <li class="breadcrumb-item active">Data Kartu Keluarga</li>
     </ol>
   </nav>
@@ -79,7 +79,7 @@
             </tr>
             @else
             <tr>
-                <td class="text-center" colspan="8">Belum ada data warga</td>
+                <td class="text-center" colspan="6">Belum Kartu Keluarga</td>
             </tr>
             @endif
             </tbody>

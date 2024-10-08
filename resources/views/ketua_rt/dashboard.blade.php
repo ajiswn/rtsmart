@@ -1,6 +1,12 @@
 @extends('component.admin_layout')
 
+@can('ketua_rt')
 @section('title', 'Dasbor Ketua RT - RTSmart')
+@endcan
+
+@can('warga')
+@section('title', 'Dasbor Warga - RTSmart')
+@endcan
 
 @section('body')
     <div class="pagetitle">
@@ -20,6 +26,7 @@
             <div class="col-lg-12">
                 <div class="row">
 
+                    @can('ketua_rt')
                     <!-- Warga Card -->
                     <div class="col-xxl-12 col-md-12">
                         <div class="card info-card sales-card">
@@ -31,7 +38,7 @@
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>0</h6>
+                                        <h6>{{$warga}}</h6>
 
                                     </div>
                                 </div>
@@ -83,6 +90,54 @@
                         </div>
 
                     </div><!-- End Pengajuan Card -->
+                    @endcan
+
+                    @can('warga')
+
+                    <!-- Kegiatan Card -->
+                    <div class="col-xxl-6 col-md-12">
+                        <div class="card info-card revenue-card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Jumlah Anggota Keluarga</h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-card-text"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>0</h6>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- End Kegiatan Card -->
+
+                    <!-- Pengajuan Card -->
+                    <div class="col-xxl-6 col-xl-12">
+
+                        <div class="card info-card customers-card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Pengajuan</h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-envelope"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>0</h6>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div><!-- End Pengajuan Card -->
+                    @endcan
 
                 </div>
             </div><!-- End Left side columns -->

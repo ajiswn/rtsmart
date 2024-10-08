@@ -29,8 +29,10 @@ class ActivitiesController extends Controller
     {
         // Mengambil dan membersihkan judul untuk dijadikan nama file
         $title = preg_replace('/[^A-Za-z0-9-_\.]/', '-', strtolower($request->title));
-        $filename = $title . '.' . $request->file('image')->getClientOriginalExtension();
-
+        if ($request->hasFile('image')) {
+            $filename = $title . '.' . $request->file('image')->getClientOriginalExtension();
+        }
+        
         Activities::create([
             'title'         => $request->title,
             'image'         => $request->file('image')->storeAs('img\activities',$filename,'public'),
@@ -39,7 +41,7 @@ class ActivitiesController extends Controller
             'content'       => $request->content,
         ]);
 
-        return redirect('/ketua_rt/activities')->with('success','Kegiatan baru berhasil ditambahkan!');
+        return redirect('/manage/activities')->with('success','Kegiatan baru berhasil ditambahkan!');
     }
 
     //Mengirim data ke Edit Kegiatan
@@ -74,7 +76,7 @@ class ActivitiesController extends Controller
 
         $activities->save();
 
-        return redirect('/ketua_rt/activities')->with('success', 'Kegiatan berhasil diedit!');
+        return redirect('/manage/activities')->with('success', 'Kegiatan berhasil diedit!');
     }
 
 
@@ -89,6 +91,6 @@ class ActivitiesController extends Controller
         //Hapus Artikel
         $activities->delete();
 
-        return redirect('/ketua_rt/activities')->with('success','Kegiatan berhasil dihapus!');
+        return redirect('/manage/activities')->with('success','Kegiatan berhasil dihapus!');
     }
 }

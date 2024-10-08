@@ -7,7 +7,7 @@
     <h1>Kegiatan</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item">Dasbor</li>
+        <li class="breadcrumb-item">Beranda</li>
         <li class="breadcrumb-item active">Kegiatan</li>
       </ol>
     </nav>
@@ -62,7 +62,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <td class="text-center" colspan="6">Data tidak tersedia di tabel</td>
+                    <td class="text-center" colspan="5">Belum ada Kegiatan</td>
                 </tr>
                 @endif
               </tbody>

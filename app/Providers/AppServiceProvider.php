@@ -24,5 +24,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('ketua_rt', function(User $user) {
             return $user->role == 'ketua_rt';
         });
+
+        Gate::define('warga', function(User $user) {
+            return $user->role == 'warga';
+        });
     }
 }

@@ -7,7 +7,7 @@
   <h1>Edit Kartu Keluarga</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">Dasbor</li>
+      <li class="breadcrumb-item">Beranda</li>
       <li class="breadcrumb-item">Data Kartu Keluarga</li>
       <li class="breadcrumb-item active">Edit Kartu Keluarga</li>
     </ol>
@@ -36,7 +36,7 @@
               <label for="image" class="form-label">Foto Kartu Keluarga</label>
               <input type="file" name="image" class="form-control" id="image">
               @if ($kartukeluarga->image)
-                <img src="{{ asset('storage/'.$kartukeluarga->image) }}" class="mt-2 img-fluid img-thumbnail" width="200" alt="Current Image" height="80">
+                <img src="{{ asset('storage/'.$kartukeluarga->image) }}" class="mt-2 img-fluid img-thumbnail form-control" width="200" alt="Current Image" height="80">
               @endif
             </div>
             <div class="col-12">

@@ -38,7 +38,9 @@ class KartuKeluargaController extends Controller
      */
     public function store(Request $request)
     {
-        $filename = $request->no_kk . '.' . $request->file('image')->getClientOriginalExtension();
+        if ($request->hasFile('image')) {
+            $filename = $request->no_kk . '.' . $request->file('image')->getClientOriginalExtension();
+        }
 
         KartuKeluarga::create([
             'no_kk' => $request->no_kk,
@@ -46,7 +48,7 @@ class KartuKeluargaController extends Controller
             'image' => $request->file('image')->storeAs('img\kartu_keluarga',$filename,'public'),
         ]);
 
-        return redirect('/ketua_rt/manage/kartukeluarga')->with('success','Kartu Keluarga baru berhasil ditambahkan!');
+        return redirect('/manage_data/kartukeluarga')->with('success','Kartu Keluarga baru berhasil ditambahkan!');
     }
 
     /**
@@ -87,7 +89,7 @@ class KartuKeluargaController extends Controller
         }
         $kartukeluarga->save();
 
-        return redirect('/ketua_rt/manage/kartukeluarga')->with('success', 'Kartu Keluarga berhasil diedit!');
+        return redirect('/manage_data/kartukeluarga')->with('success', 'Kartu Keluarga berhasil diedit!');
 
     }
 
@@ -104,7 +106,7 @@ class KartuKeluargaController extends Controller
         //Hapus KK
         $kartukeluarga->delete();
 
-        return redirect('/ketua_rt/manage/kartukeluarga')->with('success','Kartu Keluarga berhasil dihapus!');
+        return redirect('/manage_data/kartukeluarga')->with('success','Kartu Keluarga berhasil dihapus!');
     }
 
     public function aktifkan(string $id)
@@ -112,7 +114,7 @@ class KartuKeluargaController extends Controller
         KartuKeluarga::find($id)->update([
             'status' => "Aktif"
         ]);
-        return redirect('/ketua_rt/manage/kartukeluarga')->with('success','Kartau Keluarga telah diaktifkan!');
+        return redirect('/manage_data/kartukeluarga')->with('success','Kartau Keluarga telah diaktifkan!');
     }
 
     public function nonaktifkan(string $id)
@@ -120,6 +122,6 @@ class KartuKeluargaController extends Controller
         KartuKeluarga::find($id)->update([
             'status' => "Nonaktif"
         ]);
-        return redirect('/ketua_rt/manage/kartukeluarga')->with('success','Kartau Keluarga telah dinonaktifkan!');
+        return redirect('/manage_data/kartukeluarga')->with('success','Kartau Keluarga telah dinonaktifkan!');
     }
 }

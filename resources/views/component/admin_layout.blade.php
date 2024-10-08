@@ -26,6 +26,8 @@
   <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
+  <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/style-2.css') }}" rel="stylesheet">
 
@@ -52,18 +54,43 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Ketua RT</span>
+            <img src="{{ asset(Auth::user()->photo) }}" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->kartukeluarga->nama }}</span>
           </a><!-- End Profile Image Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Ketua RT</h6>
+              <h6>{{ Auth::user()->kartukeluarga->nama }}</h6>
+              @if (Auth::user()->role == 'ketua_rt')
+              <span>Ketua RT</span>
+              @else
+              <span>Warga</span>
+              @endif
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-person"></i>
+                <span>Akun Saya</span>
+              </a>
+            </li>
+            @can('ketua_rt')
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{{ url('/setting') }}">
+                <i class="bi bi-gear"></i>
+                <span>Setting</span>
+              </a>
+            </li>
+            @endcan
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li>
               <a class="dropdown-item d-flex align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal">
                 <i class="bi bi-box-arrow-right"></i>
@@ -86,36 +113,37 @@
     <ul class="sidebar-nav mt-2" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('ketua_rt/dashboard') ? '' : 'collapsed' }}" href="{{ url('/ketua_rt/dashboard') }}">
+        <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="{{ url('/dashboard') }}">
           <i class="bi bi-grid"></i>
           <span>Dasbor</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
+      @can('ketua_rt')
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('ketua_rt/activities') ? '' : 'collapsed' }}" href="{{ url('/ketua_rt/activities') }}">
+        <a class="nav-link {{ Request::is('manage/activities*') ? '' : 'collapsed' }}" href="{{ url('/manage/activities') }}">
           <i class="bi bi-card-text"></i>
           <span>Kegiatan</span>
         </a>
       </li><!-- End Articles Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('ketua_rt/manage*') ? '' : 'collapsed' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{ Request::is('manage_data*') ? '' : 'collapsed' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-people"></i><span>Kelola Data</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse {{ Request::is('ketua_rt/manage*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+        <ul id="tables-nav" class="nav-content collapse {{ Request::is('manage_data*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ url('/ketua_rt/manage/kartukeluarga') }}" class="{{ Request::is('ketua_rt/manage/kartukeluarga') ? 'active' : '' }}">
+            <a href="{{ url('/manage_data/kartukeluarga') }}" class="{{ Request::is('manage_data/kartukeluarga*') ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Data KK</span>
             </a>
           </li>
           <li>
-            <a href="#" class="">
+            <a href="{{ url('/manage_data/warga') }}" class="{{ Request::is('manage_data/warga*') ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Data Warga</span>
             </a>
           </li>
           <li>
-            <a href="{{ url('/ketua_rt/manage/users') }}" class="{{ Request::is('ketua_rt/manage/users*') ? 'active' : '' }}">
+            <a href="{{ url('/manage_data/users') }}" class="{{ Request::is('manage_data/users*') ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Akun Warga</span>
             </a>
           </li>
@@ -123,11 +151,23 @@
       </li><!-- End Data Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('pengurus') ? '' : 'collapsed' }}" href="{{ url('/pengurus') }}">
+        <a class="nav-link {{ Request::is('manage/submission_letter*') ? '' : 'collapsed' }}" href="{{ url('/manage/submission_letter') }}">
           <i class="bi bi-envelope"></i>
           <span>Pengajuan Surat</span>
         </a>
-      </li><!-- End Registration Nav -->
+      </li><!-- End Submission Letter Nav -->
+      @endcan
+      <!-- End Ketua RT's Sidebar -->
+
+      <!-- Start Warga's Sidebar -->
+      @can('warga')
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('surat_ahli_waris*') ? '' : 'collapsed' }}" href="{{ url('/surat_ahli_waris') }}">
+          <i class="bi bi-card-text"></i>
+          <span>Pengajuan Surat</span>
+        </a>
+      </li>
+      @endcan
 
     </ul>
 
@@ -179,6 +219,10 @@
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
   <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>
+  <script src="{{ asset('https://code.jquery.com/jquery-3.3.1.slim.min.js')}}"></script>
+  <script src="{{ asset('https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js')}}"></script>
+  <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js')}}"></script>
+  <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js')}}"></script>
 
 
   <!-- Template Main JS File -->

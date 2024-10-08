@@ -32,7 +32,7 @@
               <label for="image" class="form-label">Gambar</label>
               <input type="file" name="image" class="form-control" id="image">
               @if ($activities->image)
-                <img src="{{ asset('storage/'.$activities->image) }}" class="mt-2 img-fluid img-thumbnail" width="200" alt="Current Image" height="80">
+                <img src="{{ asset('storage/'.$activities->image) }}" class="mt-2 img-fluid img-thumbnail form-control" width="200" alt="Current Image" height="80">
               @endif
             </div>
             <div class="col-12">

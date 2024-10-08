@@ -35,7 +35,7 @@ class GuestController extends Controller
     {
         $activities = activities::orderBy('updated_at','desc')->get();
         $count = $this->countCategory();
-        return view('activities', compact('activities','count'));
+        return view('activities.index', compact('activities','count'));
     }  
 
     ////Mengirim Data ke Halaman Detail Kegiatan (Guest)
@@ -44,7 +44,7 @@ class GuestController extends Controller
         $activities_detail = Activities::find($id);
         $activities = Activities::orderBy('updated_at','desc')->get();
         $count = $this->countCategory();
-        return view('activities_detail', compact('activities_detail','count','activities'));
+        return view('activities.show', compact('activities_detail','count','activities'));
     }
 
     //Mengirim Data ke Halaman Kategori Artikel (Guest)
@@ -55,6 +55,6 @@ class GuestController extends Controller
         $activities = Activities::orderBy('updated_at','desc')->get();
         $count = $this->countCategory();
 
-        return view('activities_category', compact('category','count','var','activities'));
+        return view('activities.category', compact('category','count','var','activities'));
     }
 }

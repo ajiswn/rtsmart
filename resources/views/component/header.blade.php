@@ -12,7 +12,7 @@
           <li><a class="nav-link scrollto {{ request()->is('activities') ? 'active' : '' }}" href="{{ url('/activities') }}">Kegiatan</a></li>
           <li>
             @if (Auth::check())
-                <a class="nav-link scrollto" href="{{ url('/ketua_rt/dashboard') }}">
+                <a class="nav-link scrollto" href="{{ url('/dashboard') }}">
                     <button class="btn btn-primary rounded-pill">Dasbor</button>
                 </a>
             @else

@@ -7,7 +7,7 @@
   <h1>Tambah Kartu Keluarga</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">Dasbor</li>
+      <li class="breadcrumb-item">Beranda</li>
       <li class="breadcrumb-item">Data Kartu Keluarga</li>
       <li class="breadcrumb-item active">Tambah Kartu Keluarga</li>
     </ol>
