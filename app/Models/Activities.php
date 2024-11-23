@@ -11,4 +11,9 @@ class Activities extends Model
     protected $table = 'activities';
     protected $primaryKey = 'id';
     protected $fillable = ['title','image','category','date','content'];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

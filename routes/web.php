@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ActivitiesController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\KartuKeluargaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
@@ -17,7 +18,7 @@ use App\Http\Controllers\SettingsController;
 
     //Route Kegiatan, Detail Kegiatan, dan Kategori Kegiatan
     Route::get('/activities', [GuestController::class, 'activities']);
-    Route::get('/activities/detail/{id}', [GuestController::class, 'activities_detail']);
+    Route::get('/activities/detail/{id}', [GuestController::class, 'activities_detail'])->name('activity_detail');
     Route::get('/activities/category/{category}', [GuestController::class, 'activities_category']);
 
     // Route Login dilindungi, jika sudah login maka tidak bisa mengakses route ini.
@@ -31,6 +32,10 @@ use App\Http\Controllers\SettingsController;
 // Middleware's Route
     Route::get('logout', [LoginController::class, 'logout'])->name('logout')->middleware();
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware();
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware();
+    Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit')->middleware();
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update')->middleware();
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy')->middleware();
 
 // Ketua RT's Routes
 Route::middleware(\App\Http\Middleware\KetuaRTMiddleware::class)->group(function () {

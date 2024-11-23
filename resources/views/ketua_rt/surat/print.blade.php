@@ -52,10 +52,14 @@
 <body>
 	<page size="A4">
 		<div class="row">
-			{{-- <div class="col-2">
-				<img class="mt-5 ml-2" src="" width="100%" alt="leftLogo">
-			</div> --}}
-			<div class="col-12">
+            @if ($setting->logo)
+            <div class="col-2">
+				<img class="mt-5 ml-2" src="{{ asset($setting->logo) }}" width="100%" alt="leftLogo">
+			</div>
+            <div class="col-10">
+            @else
+            <div class="col-12">
+            @endif
 				<h5 class="mt-5 text-center">PEMERINTAH {{ strtoupper($setting->kab_kota) }}</h5>
 				<h5 class="mt-2 text-center">KECAMATAN {{ strtoupper($setting->kecamatan) }} - {{ strtoupper($setting->desa_kelurahan) }}</h5>
 				<h4 class="mt-2 text-center">RUKUN TETANGGA (RT) {{ $setting->rt }} - RUKUN WARGA (RW) {{ $setting->rw }}</h4>
@@ -148,13 +152,15 @@
                 </div>
             </div>
             <div class="row mt-1">
-                <div class="col-11 text-right">
+                <div class="col-8"></div>
+                <div class="col-4 text-center">
                     <img src= "{{ asset($setting->tanda_tangan) }}" alt="Tanda Tangan" style="width: 150px;">
                 </div>
             </div>
             <div class="row mt-1">
-                <div class="col-10 text-right">
-                    <p>Syaiful Bahri</p>
+                <div class="col-8"></div>
+                <div class="col-4 text-center">
+                    <p>{{$nama_ketua_rt}}</p>
                 </div>
             </div>
 		</div>

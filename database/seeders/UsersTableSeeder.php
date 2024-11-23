@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'no_kk'     => '1505071701110041',
+                'no_kk'     => '1122334455667701',
                 'role'      => 'ketua_rt',
                 'status'    => 'Aktif',
                 'created_at'=> now(),
@@ -24,7 +24,23 @@ class UsersTableSeeder extends Seeder
                 'password'  => Hash::make('123'),
             ],
             [
-                'no_kk'     => '1505071701110040',
+                'no_kk'     => '1122334455667702',
+                'role'      => 'warga',
+                'status'    => 'Aktif',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+                'password'  => Hash::make('123'),
+            ],
+            [
+                'no_kk'     => '1122334455667703',
+                'role'      => 'warga',
+                'status'    => 'Aktif',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+                'password'  => Hash::make('123'),
+            ],
+            [
+                'no_kk'     => '1122334455667704',
                 'role'      => 'warga',
                 'status'    => 'Aktif',
                 'created_at'=> now(),

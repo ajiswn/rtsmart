@@ -36,7 +36,9 @@
               <label for="image" class="form-label">Foto Kartu Keluarga</label>
               <input type="file" name="image" class="form-control" id="image">
               @if ($kartukeluarga->image)
-                <img src="{{ asset('storage/'.$kartukeluarga->image) }}" class="mt-2 img-fluid img-thumbnail form-control" width="200" alt="Current Image" height="80">
+                <img src="{{ asset('storage/'.$kartukeluarga->image) }}" class="mt-2 img-fluid img-thumbnail form-control" width="200" alt="Foto Kartu Keluarga" height="80">
+                @else
+                <label for="image" class="form-label mt-2 text-warning"> --Foto Kartu Keluarga Masih Kosong-- </label>
               @endif
             </div>
             <div class="col-12">

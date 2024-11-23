@@ -11,7 +11,7 @@
         <h2>Kategori {{$var}}</h2>
         <ol>
           <li><a href="{{ url('/') }}">Beranda</a></li>
-          <li><a href="{{ url('/article') }}">Kegiatan</a></li>
+          <li><a href="{{ url('/activities') }}">Kegiatan</a></li>
           <li>Kategori {{$var}}</li>
         </ol>
       </div>

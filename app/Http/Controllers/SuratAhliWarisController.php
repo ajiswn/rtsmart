@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SuratAhliWaris;
 use App\Models\Warga;
 use App\Models\Setting;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -155,10 +156,14 @@ class SuratAhliWarisController extends Controller
         $surat->ttl_ahli_waris = $surat->warga->tempat_lahir . ', ' . $surat->warga->tanggal_lahir;
         $surat->ttl_pewaris = $surat->wargaku->tempat_lahir . ', ' . $surat->wargaku->tanggal_lahir;
 
+        $ketua_rt = User::where('role','ketua_rt')->first();
+
+        $nama_ketua_rt = $ketua_rt->kartukeluarga->nama;
+
         $setting = Setting::findOrFail(1);
         
         if ($surat->status === 'Disetujui') {
-            return view('ketua_rt.surat.print', compact('surat', 'setting'));
+            return view('ketua_rt.surat.print', compact('surat', 'setting','nama_ketua_rt'));
         }
     }
 
