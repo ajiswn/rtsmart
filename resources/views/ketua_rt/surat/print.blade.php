@@ -54,7 +54,7 @@
 		<div class="row">
             @if ($setting->logo)
             <div class="col-2">
-				<img class="mt-5 ml-2" src="{{ asset($setting->logo) }}" width="100%" alt="leftLogo">
+				<!-- <img class="mt-5 ml-2" src="{{ asset($setting->logo) }}" width="100%" alt="leftLogo"> -->
 			</div>
             <div class="col-10">
             @else

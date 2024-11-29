@@ -64,7 +64,7 @@
                   <button title="Tolak" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolakModal" onclick="tolakAction('{{ route('surat.ditolak', $data->id) }}')">
                     <i class="bi bi-x-lg"></i>
                   </button>
-                  @elseif ($data->status == 'Ditolak')'
+                  @elseif ($data->status == 'Ditolak')
                     <button title="Hapus" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="deleteAction('{{ route('submission_letter.destroy', $data->id) }}')">
                       <i class="bi bi-trash3"></i>
                     </button>
