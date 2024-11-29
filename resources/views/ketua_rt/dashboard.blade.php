@@ -89,6 +89,24 @@
                         </div>
 
                     </div><!-- End Pengajuan Card -->
+                    <!-- Narasi -->
+                    <div class="col-xxl-12 col-xl-12 mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Informasi RT</h5>
+                                <p>Ini adalah website untuk RT 14 Kelurahan Sei Putri.</p>
+                                <p>Nama RT saat ini adalah <strong>Syaiful Bahri</strong>.</p>
+                                <h6>Tata Tertib RT 14 Kelurahan Sei Putri:</h6>
+                                <ul>
+                                    <li>Menjaga kebersihan lingkungan secara bersama-sama.</li>
+                                    <li>Melakukan ronda malam sesuai jadwal yang telah ditentukan.</li>
+                                    <li>Menghadiri rapat RT secara rutin kecuali ada halangan yang jelas.</li>
+                                    <li>Melaporkan tamu yang menginap lebih dari 24 jam kepada Ketua RT.</li>
+                                    <li>Ikut serta dalam kegiatan sosial dan gotong royong di lingkungan RT.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- End Narasi -->
                     @endcan
 
                     @can('warga')
@@ -133,6 +151,24 @@
                         </div>
 
                     </div><!-- End Pengajuan Card -->
+                    <!-- Narasi -->
+                    <div class="col-xxl-12 col-xl-12 mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Informasi RT</h5>
+                                <p>Ini adalah website untuk RT 14 Kelurahan Sei Putri.</p>
+                                <p>Nama RT saat ini adalah <strong>Syaiful Bahri</strong>.</p>
+                                <h6>Tata Tertib RT 14 Kelurahan Sei Putri:</h6>
+                                <ul>
+                                    <li>Menjaga kebersihan lingkungan secara bersama-sama.</li>
+                                    <li>Melakukan ronda malam sesuai jadwal yang telah ditentukan.</li>
+                                    <li>Menghadiri rapat RT secara rutin kecuali ada halangan yang jelas.</li>
+                                    <li>Melaporkan tamu yang menginap lebih dari 24 jam kepada Ketua RT.</li>
+                                    <li>Ikut serta dalam kegiatan sosial dan gotong royong di lingkungan RT.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- End Narasi -->
                     @endcan
 
                 </div>

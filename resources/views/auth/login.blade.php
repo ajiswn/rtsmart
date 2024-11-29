@@ -53,7 +53,7 @@
                     <button class="btn btn-primary w-100" type="submit">Login</button>
                   </div>
                   <div class="col-12">
-                    <p class="text-center mb-0 small">Belum punya akun? Silahkan hubungi <a href="{{ url('/') }}">Ketua RT</a> untuk mendapatkan akun.</p>
+                    <p class="text-center mb-0 small">Belum punya akun? Silahkan hubungi <a href="http://wa.me/+6289521310809">Ketua RT</a> untuk mendapatkan akun.</p>
                     <p></p>
                     <p class="small mb-0 text-center"><a href="{{ url('/') }}">Kembali ke Beranda</a></p>
                   </div>

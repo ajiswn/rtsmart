@@ -72,4 +72,13 @@ Route::middleware(\App\Http\Middleware\KetuaRTMiddleware::class)->group(function
 Route::middleware(\App\Http\Middleware\WargaMiddleware::class)->group(function () {
     Route::resource('surat_ahli_waris', SuratAhliWarisController::class);
     Route::get('/surat_ahli_waris/print/{id}', [SuratAhliWarisController::class, 'print'])->name('surat.print');
+    // Route untuk mengedit data Surat Ahli Waris
+    Route::get('/surat_ahli_waris/{id}/edit', [SuratAhliWarisController::class, 'edit'])
+    ->middleware('warga') // Middleware untuk membatasi akses
+    ->name('surat_ahli_waris.edit');
+
+    // Route untuk mengupdate data Surat Ahli Waris
+    Route::put('/surat_ahli_waris/{id}', [SuratAhliWarisController::class, 'update'])
+    ->middleware('warga') // Middleware untuk membatasi akses
+    ->name('surat_ahli_waris.update');
 });

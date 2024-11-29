@@ -64,6 +64,10 @@
                   <button title="Tolak" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolakModal" onclick="tolakAction('{{ route('surat.ditolak', $data->id) }}')">
                     <i class="bi bi-x-lg"></i>
                   </button>
+                  @elseif ($data->status == 'Ditolak')'
+                    <button title="Hapus" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="deleteAction('{{ route('submission_letter.destroy', $data->id) }}')">
+                      <i class="bi bi-trash3"></i>
+                    </button>
                   @endif
                   @endcan
                       
@@ -72,6 +76,21 @@
                     @if ($data->status == 'Ditolak')
                     <a title="Edit" href="{{ route('surat_ahli_waris.edit',$data->id) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                     @endif
+                    <!-- @if ($data->status == 'Ditolak')
+                        <button 
+                            title="Tolak" 
+                            type="button" 
+                            class="btn btn-danger" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#tolakModal" 
+                            onclick="tolakAction('{{ route('surat.ditolak', $data->id) }}')" 
+                            disabled
+                        >
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                        <a title="Edit" href="{{ route('surat_ahli_waris.edit',$data->id) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+
+                    @endif -->
                     @if ($data->status == 'Disetujui')
                     <a target="_blank" title="Cetak" href="{{ route('surat.print',$data->id) }}" class="btn btn-primary"><i class="bi bi-printer"></i></a>
                     @endif
@@ -136,6 +155,29 @@
     </div>
   </div>
 </div>
+
+<!-- Start Konfirmasi Hapus Modal -->
+<div class="modal fade" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title">Konfirmasi Hapus Surat</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body border-0 text-center">
+            Anda Yakin Ingin Menghapus Surat Ini?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Tutup</button>
+          <form action="" id="deleteForm" method="POST">
+            @csrf @method('delete')
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Hapus</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- End Konfirmasi Hapus Modal-->
 @endsection
 
 @section('script')
@@ -146,6 +188,10 @@
 
   function tolakAction(actionUrl) {
       document.getElementById('tolakButton').href = actionUrl;
+  }
+
+  function deleteAction(actionUrl) {
+      document.getElementById('deleteForm').action = actionUrl;
   }
 </script>
 @endsection
