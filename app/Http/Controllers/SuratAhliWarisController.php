@@ -7,6 +7,7 @@ use App\Models\SuratAhliWaris;
 use App\Models\Warga;
 use App\Models\Setting;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 
@@ -18,9 +19,9 @@ class SuratAhliWarisController extends Controller
     public function index()
     {
         if (auth()->user()->role === 'ketua_rt') {
-            $suratAhliWaris = SuratAhliWaris::all();
+            $suratAhliWaris = SuratAhliWaris::orderBy('updated_at', 'desc')->get();
         } elseif (auth()->user()->role === 'warga') {
-            $suratAhliWaris = SuratAhliWaris::where('no_kk', auth()->user()->no_kk)->get();
+            $suratAhliWaris = SuratAhliWaris::where('no_kk', auth()->user()->no_kk)->orderBy('updated_at','desc')->get();
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -42,8 +43,9 @@ class SuratAhliWarisController extends Controller
     public function generateNomorSurat()
     {
         $setting = Setting::select('rt', 'rw')->where('id', 1)->first();
-        $jumlahSurat = SuratAhliWaris::count() + 1;
-        $nomorUrut = str_pad($jumlahSurat, 3, '0', STR_PAD_LEFT);
+        $lastId = SuratAhliWaris::max('id');
+        $nextId = $lastId ? $lastId + 1 : 1;
+        $nomorUrut = str_pad($nextId, 3, '0', STR_PAD_LEFT);
         $tahun = date('Y');
         $no_surat = "{$nomorUrut}/RT.{$setting->rt}/RW.{$setting->rw}/{$tahun}";
         return $no_surat;
@@ -103,9 +105,16 @@ class SuratAhliWarisController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        // Ambil data surat berdasarkan ID
+        $surat = SuratAhliWaris::findOrFail($id);
+
+        // Ambil data warga (untuk dropdown)
+        $warga = Warga::all(); // Ganti dengan query sesuai struktur database
+
+        // Kirim data ke view
+        return view('ketua_rt.surat.edit_surat', compact('surat', 'warga'));
     }
 
     /**
@@ -113,7 +122,49 @@ class SuratAhliWarisController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validasi input
+        $request->validate([
+            'nik_ahli_waris' => 'required',
+            'nik_pewaris' => 'required',
+            'hubungan_pewaris' => 'required|string|max:255',
+            'tujuan' => 'required|string|max:255',
+            'ktp_ahli_waris' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
+            'ktp_pewaris' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
+            'kk' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
+            'akta_kematian' => 'nullable|file|mimes:jpeg,png,pdf|max:2048',
+        ]);
+
+        // Ambil data surat berdasarkan ID
+        $surat = SuratAhliWaris::findOrFail($id);
+
+        // Update data
+        $surat->update([
+            'nik_ahli_waris' => $request->nik_ahli_waris,
+            'nik_pewaris' => $request->nik_pewaris,
+            'hubungan_pewaris' => $request->hubungan_pewaris,
+            'tujuan' => $request->tujuan,
+            'status' => "Diproses",
+        ]);
+
+        // Upload file jika ada
+        if ($request->hasFile('ktp_ahli_waris')) {
+            $surat->ktp_ahli_waris = $request->file('ktp_ahli_waris')->store('ktp_ahli_waris');
+        }
+        if ($request->hasFile('ktp_pewaris')) {
+            $surat->ktp_pewaris = $request->file('ktp_pewaris')->store('ktp_pewaris');
+        }
+        if ($request->hasFile('kk')) {
+            $surat->kk = $request->file('kk')->store('kk');
+        }
+        if ($request->hasFile('akta_kematian')) {
+            $surat->akta_kematian = $request->file('akta_kematian')->store('akta_kematian');
+        }
+
+        // Simpan perubahan
+        $surat->save();
+
+        // Redirect kembali ke halaman edit dengan pesan sukses
+        return redirect('/surat_ahli_waris')->with('success', 'Pengajuan surat berhasil diperbaharui!');
     }
 
     /**
@@ -121,7 +172,24 @@ class SuratAhliWarisController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $suratAhliWaris = SuratAhliWaris::findOrFail($id);
+        //Hapus Gambar jika ada
+        if ($suratAhliWaris->ktp_ahli_waris) {
+            Storage::delete($suratAhliWaris->ktp_ahli_waris);
+        }
+        if ($suratAhliWaris->ktp_pewaris) {
+            Storage::delete($suratAhliWaris->ktp_pewaris);
+        }
+        if ($suratAhliWaris->kk) {
+            Storage::delete($suratAhliWaris->kk);
+        }
+        if ($suratAhliWaris->akta_kematian) {
+            Storage::delete($suratAhliWaris->akta_kematian);
+        }
+        //Hapus Artikel
+        $suratAhliWaris->delete();
+
+        return redirect('/manage/submission_letter')->with('success','Kegiatan berhasil dihapus!');
     }
 
     public function diterima(string $id)
