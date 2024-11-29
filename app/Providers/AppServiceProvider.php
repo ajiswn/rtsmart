@@ -29,4 +29,9 @@ class AppServiceProvider extends ServiceProvider
             return $user->role == 'warga';
         });
     }
+
+    protected $policies = [
+        Comment::class => CommentPolicy::class,
+    ];
+    
 }

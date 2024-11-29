@@ -34,7 +34,7 @@ class LoginController extends Controller
         if ($user && $user->status === 'Aktif') {
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->intended('/dashboard');
+                return redirect()->intended('/');
             }
         }
 

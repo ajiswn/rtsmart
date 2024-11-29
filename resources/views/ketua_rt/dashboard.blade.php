@@ -74,15 +74,14 @@
                         <div class="card info-card customers-card">
 
                             <div class="card-body">
-                                <h5 class="card-title">Pengajuan</h5>
+                                <h5 class="card-title">Pengajuan Surat</h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-envelope"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>0</h6>
-
+                                        <h6>{{$pengajuan}}</h6>
                                     </div>
                                 </div>
 
@@ -111,8 +110,7 @@
                     @endcan
 
                     @can('warga')
-
-                    <!-- Kegiatan Card -->
+                    <!-- Anggota Keluarga Card -->
                     <div class="col-xxl-6 col-md-12">
                         <div class="card info-card revenue-card">
 
@@ -121,17 +119,16 @@
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-card-text"></i>
+                                        <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>0</h6>
-
+                                        <h6>{{$anggotakeluarga}}</h6>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                    </div><!-- End Kegiatan Card -->
+                    </div><!-- End Anggota Keluarga Card -->
 
                     <!-- Pengajuan Card -->
                     <div class="col-xxl-6 col-xl-12">
@@ -139,15 +136,14 @@
                         <div class="card info-card customers-card">
 
                             <div class="card-body">
-                                <h5 class="card-title">Pengajuan</h5>
+                                <h5 class="card-title">Pengajuan Surat</h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-envelope"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>0</h6>
-
+                                        <h6>{{$pengajuanperkeluarga}}</h6>
                                     </div>
                                 </div>
 

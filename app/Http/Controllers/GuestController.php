@@ -41,7 +41,7 @@ class GuestController extends Controller
     ////Mengirim Data ke Halaman Detail Kegiatan (Guest)
     public function activities_detail(string $id)
     {
-        $activities_detail = Activities::find($id);
+        $activities_detail = Activities::with("comments.user")->findOrFail($id);
         $activities = Activities::orderBy('updated_at','desc')->get();
         $count = $this->countCategory();
         return view('activities.show', compact('activities_detail','count','activities'));

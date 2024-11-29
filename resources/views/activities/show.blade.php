@@ -62,6 +62,74 @@
 
                         </div>
                     </div><!-- /Blog Details Section -->
+
+                    <!-- Blog Comments Section -->
+                    <section id="blog-comments" class="blog-comments section">
+                        <div class="container">
+                            <h4 class="comments-count">{{ $activities_detail->comments->count() }} Komentar</h4>
+                    
+                            @foreach($activities_detail->comments as $comment)
+                            <div id="comment-{{ $comment->id }}" class="comment">
+                                <div class="d-flex">
+                                    <div class="comment-img">
+                                        <img src="{{ $comment->user->warga->name ?? asset('assets/img/blank-profile.png') }}" alt="" class="rounded-circle">
+                                    </div>
+                                    <div>
+                                        <h5>{{ $comment->user->kartukeluarga->nama }}</h5>
+                                        <time datetime="{{ $comment->created_at }}">{{ $comment->created_at->format('d M, Y') }}</time>
+                                        <p>{{ $comment->comment }}</p>
+                                        @if(auth()->check() && auth()->id() == $comment->user_id)
+                                        <a href="javascript:void(0);" class="btn btn-primary btn-sm" onclick="editComment('{{ $comment->id }}', '{{ $comment->comment }}')">Edit</a>
+                                        <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                        </form>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div><!-- End comment -->
+                            @endforeach
+                    
+                            @auth
+                            <div class="reply-form" id="create-comment-form">
+                                <h4>Tinggalkan komentar</h4>
+                                <p>Komentar sebagai <b>{{ auth()->user()->kartukeluarga->nama }}</b></p>
+                                <form action="{{ route('comments.store', $activities_detail->id) }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col form-group">
+                                            <textarea name="comment" class="form-control" placeholder="Masukkan Komentar Anda..." required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Tambahkan Komentar</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <div class="reply-form" id="edit-comment-form" style="display: none;">
+                                <h4>Edit Komentar</h4>
+                                <p>Komentar sebagai {{ auth()->user()->kartukeluarga->nama }}</p>
+                                <form action="{{ isset($comment) ? route('comments.update', $comment->id) : '#' }}  " method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="col form-group">
+                                            <textarea name="comment" class="form-control" placeholder="Masukkan Komentar Anda..." required>{{ isset($comment) ? $comment->comment : '' }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Perbarui Komentar</button>
+                                    </div>
+                                </form>
+                            </div>
+                            @else
+                            <p><a href="{{ route('login') }}">Login</a> untuk berkomentar</p>
+                            @endauth
+                        </div>
+                    </section>
+                    <!-- /Blog Comments Section -->
                 </div>
 
                 <div class="col-lg-3 sidebar">
@@ -124,4 +192,22 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function editComment(commentId, currentComment) {
+
+            // Menyembunyikan form untuk membuat komentar baru
+            document.getElementById('create-comment-form').style.display = 'none';
+            // Menampilkan form untuk edit
+            let form = document.getElementById('edit-comment-form');
+            form.style.display = 'block';  // Tampilkan form edit
+
+            // Mengisi nilai komentar yang ingin diedit
+            form.querySelector('textarea[name="comment"]').value = currentComment;
+
+            // Ubah action form menjadi route untuk update
+            form.querySelector('form').action = `/comments/${commentId}`;
+        }
+    </script>
+    
 @endsection

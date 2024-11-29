@@ -64,7 +64,7 @@
             </div>
             <div class="col-12 mt-3">
               <label for="tujuan" class="form-label">Tujuan Pengajuan Surat</label>
-              <input type="text" name="tujuan" class="form-control" id="tujuan" value="{{ $surat->tujuan }}">
+              <input type="text" name="tujuan" class="form-control" id="tujuan" value="{{ $surat->tujuan }}" disabled>
             </div>
             <div class="col-12 mt-3">
               <a href="{{ url()->previous() }}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Kembali</a>
